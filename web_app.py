@@ -6,9 +6,8 @@ import mediapipe as mp
 import tempfile
 import os
 import time
-from tensorflow.keras.models import load_model #type : ignore
+from tensorflow.keras.models import load_model  # type: ignore
 from gtts import gTTS
-from playsound import playsound
 
 # ==============================
 # KONFIGURASI DASAR
@@ -98,7 +97,7 @@ def text_to_speech(text):
     try:
         tts = gTTS(text=text, lang='id')
         tts.save(TEMP_AUDIO_FILE)
-        st.audio(TEMP_AUDIO_FILE, format='audio/mp3')
+        st.audio(TEMP_AUDIO_FILE, format='audio/mp3', autoplay=True)
     except Exception as e:
         st.warning(f"Voice output error: {e}")
 
@@ -161,18 +160,13 @@ if start_button:
                         if len(sentence) == 0 or predicted_label != sentence[-1]:
                             sentence.append(predicted_label)
                             last_prediction_time = current_time
-                            try:
-                                text_to_speech(predicted_label)
-                            except Exception as e:
-                                st.warning(f"Voice output error: {e}")
+                            text_to_speech(predicted_label)
 
         if len(sentence) > 5:
             sentence = sentence[-5:]
 
-        # Tampilkan hasil dan frame
         FRAME_WINDOW.image(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         sentence_placeholder.markdown(f"### 🗣️ Prediksi: {' '.join(sentence)}")
 
     cap.release()
     st.success("Deteksi dihentikan.")
-
