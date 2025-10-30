@@ -95,10 +95,12 @@ def create_canvas_crop(img, bbox):
     return canvas
 
 def text_to_speech(text):
-    tts = gTTS(text=text, lang='id')
-    tts.save(TEMP_AUDIO_FILE)
-    playsound(TEMP_AUDIO_FILE)
-    os.remove(TEMP_AUDIO_FILE)
+    try:
+        tts = gTTS(text=text, lang='id')
+        tts.save(TEMP_AUDIO_FILE)
+        st.audio(TEMP_AUDIO_FILE, format='audio/mp3')
+    except Exception as e:
+        st.warning(f"Voice output error: {e}")
 
 # ==============================
 # STREAMLIT UI
@@ -173,3 +175,4 @@ if start_button:
 
     cap.release()
     st.success("Deteksi dihentikan.")
+
