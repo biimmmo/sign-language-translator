@@ -13,7 +13,7 @@ from gtts import gTTS
 # KONFIGURASI DASAR
 # ==============================
 BASE_DIR = os.getcwd()
-MODEL_PATH = os.path.join(BASE_DIR, "models", "sign_model.h5")
+MODEL_PATH = os.path.join(BASE_DIR, "models", "sign_model_tf12.h5")
 LABEL_CLASSES_PATH = os.path.join(BASE_DIR, "models", "label_classes.npy")
 TEMP_AUDIO_FILE = os.path.join(tempfile.gettempdir(), "temp_prediction.mp3")
 
@@ -170,3 +170,4 @@ if start_button:
 
     cap.release()
     st.success("Deteksi dihentikan.")
+
